@@ -1,31 +1,10 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import io from 'socket.io-client';
 
 const ChatContext = createContext();
 
 export const useStore = () => {
   return useContext(ChatContext);
-};
-
-const initialState = {
-  general: [],
-  topic: []
-};
-
-const reducer = (state, action) => {
-  const {
-    type,
-    payload: { from, msg, topic }
-  } = action;
-  switch (type) {
-    case 'RECEIVE_MESSAGE':
-      return {
-        ...state,
-        [topic]: [...state[topic], { from, msg }]
-      };
-    default:
-      return state;
-  }
 };
 
 let socket;
@@ -35,20 +14,23 @@ const sendChatAction = value => {
 };
 
 export const Store = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [chats, setChats] = useState({
+    general: [],
+    topic: []
+  });
+  const [user, setUser] = useState('Guest');
 
   if (!socket) {
     socket = io(':8000');
-    socket.on('chat message', msg => {
-      dispatch({
-        type: 'RECEIVE_MESSAGE',
-        payload: msg
-      });
+    socket.on('chat message', ({ from, msg, topic }) => {
+      setChats(chats => ({
+        ...chats,
+        [topic]: [...chats[topic], { from, msg }]
+      }));
     });
   }
-  const user = 'John' + Math.random(100).toFixed(2);
   return (
-    <ChatContext.Provider value={{ state, sendChatAction, user }}>
+    <ChatContext.Provider value={{ chats, user, setUser, sendChatAction }}>
       {children}
     </ChatContext.Provider>
   );

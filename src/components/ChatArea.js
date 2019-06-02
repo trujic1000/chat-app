@@ -18,11 +18,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ChatArea = ({ state, activeTopic }) => {
+const ChatArea = ({ chats, activeTopic }) => {
   const classes = useStyles();
   return (
     <div className={classes.chatWindow}>
-      {state[activeTopic].map((chat, i) => (
+      {chats[activeTopic].map((chat, i) => (
         <div key={i} className={classes.flex}>
           <Chip label={chat.from} className={classes.chip} />
           <Typography varient="body1" gutterBottom className={classes.chip}>

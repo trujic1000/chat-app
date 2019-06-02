@@ -21,20 +21,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dashboard = () => {
-  const { state, sendChatAction, user } = useStore();
-  const topics = Object.keys(state);
+  const { chats, user, setUser, sendChatAction } = useStore();
+  let topics = Object.keys(chats);
+  // Slicing user
   const [activeTopic, changeActiveTopic] = useState(topics[0]);
   const classes = useStyles();
   return (
     <Paper className={classes.root}>
-      <Header activeTopic={activeTopic} />
+      <Header activeTopic={activeTopic} user={user} setUser={setUser} />
       <div className={classes.flex}>
         <Channels
           topics={topics}
           activeTopic={activeTopic}
           changeActiveTopic={changeActiveTopic}
         />
-        <ChatArea state={state} activeTopic={activeTopic} />
+        <ChatArea chats={chats} activeTopic={activeTopic} />
       </div>
       <SendChat
         sendChatAction={sendChatAction}
