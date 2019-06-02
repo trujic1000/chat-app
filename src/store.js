@@ -8,16 +8,8 @@ export const useStore = () => {
 };
 
 const initialState = {
-  general: [
-    { from: 'John', msg: 'Hello' },
-    { from: 'Jane', msg: 'Hello' },
-    { from: 'Jenny', msg: 'Hello' }
-  ],
-  topic: [
-    { from: 'Mark', msg: 'Hello' },
-    { from: 'Max', msg: 'Hello' },
-    { from: 'Aaron', msg: 'Hello' }
-  ]
+  general: [],
+  topic: []
 };
 
 const reducer = (state, action) => {
