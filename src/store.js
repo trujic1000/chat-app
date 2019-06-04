@@ -21,7 +21,8 @@ export const Store = ({ children }) => {
   const [user, setUser] = useState('Guest');
 
   if (!socket) {
-    socket = io(':8000');
+    // socket = io(':8000');
+    socket = io('/');
     socket.on('chat message', ({ from, msg, topic }) => {
       setChats(chats => ({
         ...chats,
