@@ -16,7 +16,7 @@ const sendChatAction = value => {
 export const Store = ({ children }) => {
   const [chats, setChats] = useState({
     general: [],
-    topic: []
+    announcements: []
   });
   const [user, setUser] = useState('Guest');
 

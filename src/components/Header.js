@@ -49,7 +49,7 @@ const Header = ({ activeTopic, user, setUser }) => {
       </div>
       <div>
         <Typography variant="h4" component="h4">
-          Chat app
+          Current channel
         </Typography>
         <Typography variant="h5" component="h5">
           {activeTopic}

@@ -1,6 +1,14 @@
-const app = require('express')();
+const express = require('express');
+const app = express();
+const path = require('path');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+
+const PORT = process.env.PORT || 8000;
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + '/build'));
+}
 
 io.on('connection', socket => {
   console.log('user connected');
@@ -9,6 +17,6 @@ io.on('connection', socket => {
   });
 });
 
-http.listen(8000, () => {
-  console.log(`listening on *:8000`);
+http.listen(PORT, () => {
+  console.log(`listening on *:${PORT}`);
 });
