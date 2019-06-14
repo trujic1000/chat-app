@@ -19,23 +19,27 @@ const useStyles = makeStyles(theme => ({
 const SendChat = ({ sendChatAction, user, activeTopic }) => {
   const classes = useStyles();
   const [textValue, changeTextValue] = useState('');
+  const sendChat = () => {
+    sendChatAction({
+      from: user,
+      msg: textValue,
+      topic: activeTopic
+    });
+    changeTextValue('');
+  };
   return (
     <div className={classes.flex}>
       <TextField
-        label="Send a message"
+        label="Send a chat"
         className={classes.chatBox}
         value={textValue}
         onChange={e => changeTextValue(e.target.value)}
+        onKeyPress={e => {
+          if (e.key === 'Enter') sendChat();
+        }}
       />
       <Button
-        onClick={() => {
-          sendChatAction({
-            from: user,
-            msg: textValue,
-            topic: activeTopic
-          });
-          changeTextValue('');
-        }}
+        onClick={() => sendChat()}
         variant="contained"
         color="primary"
         className={classes.button}

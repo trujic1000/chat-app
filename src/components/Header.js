@@ -9,12 +9,26 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center'
   },
-  alignLeft: {
+  button: {
+    marginTop: theme.spacing(1)
+  },
+  userName: {
     textAlign: 'left',
     padding: '1.5rem',
-    width: '50%',
+    flex: 1,
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignItems: 'start'
+    }
+  },
+  channel: {
+    textAlign: 'center',
+    flex: 2,
+    [theme.breakpoints.down('sm')]: {
+      flex: 3
+    }
   }
 }));
 
@@ -23,7 +37,7 @@ const Header = ({ activeTopic, user, setUser }) => {
   const [tempUser, setTempUser] = useState('');
   return (
     <div className={classes.flex}>
-      <div className={classes.alignLeft}>
+      <div className={classes.userName}>
         {user === 'Guest' ? (
           <>
             <TextField
@@ -35,6 +49,7 @@ const Header = ({ activeTopic, user, setUser }) => {
               onClick={() => {
                 setUser(tempUser);
               }}
+              className={classes.button}
               variant="contained"
               color="primary"
             >
@@ -47,7 +62,7 @@ const Header = ({ activeTopic, user, setUser }) => {
           </Typography>
         )}
       </div>
-      <div>
+      <div className={classes.channel}>
         <Typography variant="h4" component="h4">
           Current channel
         </Typography>
